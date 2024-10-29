@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/listFragment"
+        android:icon="@drawable/baseline_checklist_24"
+        android:title="리스트" />
+    <item
+        android:id="@+id/calenderFragment"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:title="달력" />
+    <item
+        android:id="@+id/routineFragment"
+        android:icon="@drawable/baseline_repeat_24"
+        android:title="루틴" />
+    <item
+        android:id="@+id/achiveFragment"
+        android:icon="@drawable/baseline_playlist_add_check_24"
+        android:title="달성" />
+</menu>
