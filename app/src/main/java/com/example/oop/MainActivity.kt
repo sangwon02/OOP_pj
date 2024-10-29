@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.oop.databinding.ActivityMainBinding
 
+// 열심히 합시다!!
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
