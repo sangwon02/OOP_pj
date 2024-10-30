@@ -9,20 +9,85 @@
         android:id="@+id/listFragment"
         android:name="com.example.oop.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_freindFragment"
+            app:destination="@id/freindFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_addlistFragment"
+            app:destination="@id/addlistFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_freiendaddFragment"
+            app:destination="@id/freiendaddFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calenderFragment"
         android:name="com.example.oop.CalenderFragment"
         android:label="fragment_calender"
-        tools:layout="@layout/fragment_calender" />
+        tools:layout="@layout/fragment_calender" >
+        <action
+            android:id="@+id/action_calenderFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/routineFragment"
         android:name="com.example.oop.routineFragment"
         android:label="fragment_routine"
-        tools:layout="@layout/fragment_routine" />
+        tools:layout="@layout/fragment_routine" >
+        <action
+            android:id="@+id/action_routineFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_routineFragment_to_routineaddFragment"
+            app:destination="@id/routineaddFragment" />
+    </fragment>
     <fragment
         android:id="@+id/achiveFragment"
         android:name="com.example.oop.achiveFragment"
         android:label="fragment_achive"
-        tools:layout="@layout/fragment_achive" />
+        tools:layout="@layout/fragment_achive" >
+        <action
+            android:id="@+id/action_achiveFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/freindFragment"
+        android:name="com.example.oop.FreindFragment"
+        android:label="fragment_freind"
+        tools:layout="@layout/fragment_freind" >
+        <action
+            android:id="@+id/action_freindFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addlistFragment"
+        android:name="com.example.oop.AddlistFragment"
+        android:label="fragment_addlist"
+        tools:layout="@layout/fragment_addlist" >
+        <action
+            android:id="@+id/action_addlistFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/routineaddFragment"
+        android:name="com.example.oop.routineaddFragment"
+        android:label="fragment_routineadd"
+        tools:layout="@layout/fragment_routineadd" >
+        <action
+            android:id="@+id/action_routineaddFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.oop.settingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/freiendaddFragment"
+        android:name="com.example.oop.freiendaddFragment"
+        android:label="fragment_freiendadd"
+        tools:layout="@layout/fragment_freiendadd" />
 </navigation>
