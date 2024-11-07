@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/listFragment"
+        android:id="@+id/frg_list"
         android:icon="@drawable/baseline_checklist_24"
         android:title="리스트" />
     <item
-        android:id="@+id/calenderFragment"
-        android:icon="@drawable/baseline_calendar_month_24"
-        android:title="달력" />
+        android:id="@+id/frg_ranking"
+        android:icon="@drawable/baseline_add_task_24"
+        android:title="리더보드" />
     <item
-        android:id="@+id/routineFragment"
+        android:id="@+id/frg_routine"
         android:icon="@drawable/baseline_repeat_24"
         android:title="루틴" />
     <item
-        android:id="@+id/achiveFragment"
+        android:id="@+id/frg_achive"
         android:icon="@drawable/baseline_playlist_add_check_24"
         android:title="달성" />
 </menu>
