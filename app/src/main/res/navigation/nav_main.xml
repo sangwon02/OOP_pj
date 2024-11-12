@@ -83,7 +83,11 @@
         android:id="@+id/btnlistadd"
         android:name="com.example.oop.freiendaddFragment"
         android:label="fragment_freiendadd"
-        tools:layout="@layout/fragment_freiendadd" />
+        tools:layout="@layout/fragment_freiendadd" >
+        <action
+            android:id="@+id/action_btnlistadd_to_frg_list"
+            app:destination="@id/frg_list" />
+    </fragment>
     <fragment
         android:id="@+id/frg_ranking"
         android:name="com.example.oop.RankingFragment"

@@ -5,51 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.oop.data.User
+import com.example.oop.databinding.FragmentListBinding
+import com.example.oop.databinding.FragmentRankingBinding
+import com.example.oop.viewmodel.UserAdapter
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RankingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RankingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    val rankingList = arrayOf(
+        User("박경순"),
+        User("이상말"),
+        User("괵도혁"),
+        User("괵도혁"),
+        User("괵도혁"),
+        User("괵도혁"),
+        User("괵도혁"),
+        User("괵도혁"),
+        User("문굉현")
+    )
+
+    lateinit var binding : FragmentRankingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ranking, container, false)
-    }
+        binding = FragmentRankingBinding.inflate(inflater, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RankingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic fun newInstance(param1: String, param2: String) =
-                RankingFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+        // Fragment 클래스 내부에서 this는 context로 간주되지 않아 requireContext()를 사용해야 한다.
+        binding.recUsers.layoutManager = LinearLayoutManager(requireContext())
+        binding.recUsers.adapter = UserAdapter(rankingList)
+
+        return binding.root
     }
 }
