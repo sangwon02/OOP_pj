@@ -1,31 +1,29 @@
 package com.example.oop
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AddlistFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddlistFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var categorySpinner: Spinner
+    private lateinit var taskNameEditText: EditText
+    private lateinit var dateTextView: TextView
+    private lateinit var addButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            // 파라미터 처리 (필요시)
         }
     }
 
@@ -33,26 +31,52 @@ class AddlistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_addlist, container, false)
+        val view = inflater.inflate(R.layout.fragment_addlist, container, false)
+
+        categorySpinner = view.findViewById(R.id.category_spinner)
+        taskNameEditText = view.findViewById(R.id.task_name)
+        dateTextView = view.findViewById(R.id.date_text)
+        addButton = view.findViewById(R.id.add_button)
+
+        setupCategorySpinner()
+        setupDatePicker()
+
+        addButton.setOnClickListener {
+            // 할 일 추가 로직 구현
+        }
+
+        return view
+    }
+
+    private fun setupCategorySpinner() {
+        val categories = arrayOf("카테고리1", "카테고리2", "카테고리3")
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = adapter
+    }
+
+    private fun setupDatePicker() {
+        dateTextView.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+
+            DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                // 날짜 문자열 생성
+                val dateString = String.format("%d년 %d월 %d일", selectedYear, selectedMonth + 1, selectedDay)
+                dateTextView.text = dateString
+            }, year, month, day).show()
+        }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddlistFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             AddlistFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString("param1", param1)
+                    putString("param2", param2)
                 }
             }
     }
