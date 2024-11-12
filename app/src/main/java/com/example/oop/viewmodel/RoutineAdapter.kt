@@ -9,10 +9,17 @@ import com.example.oop.data.Routine
 import com.example.oop.databinding.RoutineCategoryItemBinding // 카테고리 아이템 레이아웃을 위한 바인딩
 import com.example.oop.databinding.RoutineItemBinding // 루틴 아이템 레이아웃을 위한 바인딩
 
-class RoutineAdapter(private val routineCategories: List<RoutineCategory>) : RecyclerView.Adapter<RoutineAdapter.RoutineViewHolder>() {
+class RoutineAdapter(
+    private val routineCategories: List<RoutineCategory>,
+    private val listener: OnAddRoutineClickListener // 클릭 리스너 인터페이스 추가
+) : RecyclerView.Adapter<RoutineAdapter.RoutineViewHolder>() {
+
+    interface OnAddRoutineClickListener { // 인터페이스 정의
+        fun onAddRoutineClick(category: RoutineCategory)
+    }
 
     class RoutineViewHolder(private val binding: RoutineCategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(routineCategory: RoutineCategory) {
+        fun bind(routineCategory: RoutineCategory, listener: OnAddRoutineClickListener) {
             binding.routineCategoryName.text = routineCategory.category.name // 카테고리 이름 설정
 
             // 루틴 리스트를 표시하기 위한 RecyclerView 설정
@@ -20,6 +27,11 @@ class RoutineAdapter(private val routineCategories: List<RoutineCategory>) : Rec
             binding.routineList.apply {
                 adapter = routineAdapter
                 layoutManager = LinearLayoutManager(binding.root.context)
+            }
+
+            // add_routine_button 클릭 리스너 설정
+            binding.addRoutineButton.setOnClickListener {
+                listener.onAddRoutineClick(routineCategory) // 클릭 이벤트 전달
             }
         }
     }
@@ -30,7 +42,7 @@ class RoutineAdapter(private val routineCategories: List<RoutineCategory>) : Rec
     }
 
     override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
-        holder.bind(routineCategories[position])
+        holder.bind(routineCategories[position], listener) // 리스너 전달
     }
 
     override fun getItemCount(): Int {
