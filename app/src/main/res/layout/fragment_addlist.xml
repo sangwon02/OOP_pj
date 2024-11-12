@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="120sp"
-        android:layout_marginBottom="80sp"
+        android:layout_marginTop="100sp"
+        android:layout_marginBottom="60sp"
         android:text="할 일 추가"
         android:textSize="40sp"
         android:textStyle="bold" />
