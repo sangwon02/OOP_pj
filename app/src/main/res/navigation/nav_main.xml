@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/frg_routine"
-        android:name="com.example.oop.routineFragment"
+        android:name="com.example.oop.RoutineFragment"
         android:label="fragment_routine"
         tools:layout="@layout/fragment_routine" >
         <action
