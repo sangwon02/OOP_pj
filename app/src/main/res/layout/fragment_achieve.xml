@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:id="@+id/datetextview"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:text="10월 3주차 달성률"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/달력" />
+
+
+    <ImageView
+        android:id="@+id/achieve_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="233dp"
+        android:src="@drawable/달성률그래프"/>
+
+    <TextView
+        android:id="@+id/monthtextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="월간달성률로 이동"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#128721B3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/text_front"
+                android:layout_width="77dp"
+                android:layout_height="77dp"
+                android:src="@drawable/글머리기호"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="4dp" />
+
+            <EditText
+                android:id="@+id/taskEditText2"
+                android:layout_width="244dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:hint="할 일을 입력하세요"
+                app:layout_constraintEnd_toStartOf="@+id/taskCheckBox2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/text_front"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteY="4dp" />
+
+            <CheckBox
+                android:id="@+id/taskCheckBox2"
+                android:layout_width="49dp"
+                android:layout_height="82dp"
+                android:backgroundTint="#A029B4"
+                android:buttonTint="#9E28B3"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/taskEditText2"
+
+                tools:layout_editor_absoluteX="324dp"
+                tools:layout_editor_absoluteY="0dp" />
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
