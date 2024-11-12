@@ -1,71 +1,86 @@
 package com.example.oop.viewmodel
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.oop.R
 import com.example.oop.data.Category
 import com.example.oop.data.Task
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.oop.databinding.TaskItemBinding
+import com.example.oop.databinding.CategoryItemBinding
 
-class TaskAdapter(private val categories: List<Category>) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
+class TaskAdapter(
+    private val categories: List<Category>,
+    private val listener: OnTaskClickListener // 클릭 리스너 인터페이스 추가
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val categoryName: TextView = view.findViewById(R.id.category_name)
-        val editCategoryButton: Button = view.findViewById(R.id.edit_category_button)
-        val addTaskButton: Button = view.findViewById(R.id.add_task_button)
-        val taskList: RecyclerView = view.findViewById(R.id.task_list)
+    companion object {
+        private const val VIEW_TYPE_CATEGORY = 0
+        private const val VIEW_TYPE_TASK = 1
+    }
 
+    interface OnTaskClickListener { // 인터페이스 정의
+        fun onAddTaskClick(category: Category)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        var currentPosition = 0
+        for (category in categories) {
+            if (currentPosition == position) {
+                return VIEW_TYPE_CATEGORY
+            }
+            currentPosition++ // 카테고리 위치 증가
+            currentPosition += category.tasks.size // 할 일 수만큼 증가
+        }
+        return VIEW_TYPE_TASK
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == VIEW_TYPE_CATEGORY) {
+            val binding = CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CategoryViewHolder(binding)
+        } else {
+            val binding = TaskItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            TaskViewHolder(binding)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        var currentPosition = 0
+        for (category in categories) {
+            // 카테고리 처리
+            if (currentPosition == position) {
+                (holder as CategoryViewHolder).bind(category)
+                holder.binding.addTaskButton.setOnClickListener { // 클릭 시 이벤트 전파
+                    listener.onAddTaskClick(category)
+                }
+                return
+            }
+            currentPosition++ // 카테고리 위치 증가
+            // 할 일 처리
+            for (task in category.tasks) {
+                if (currentPosition == position) {
+                    (holder as TaskViewHolder).bind(task)
+                    return
+                }
+                currentPosition++ // 다음 할 일로 이동
+            }
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return categories.sumOf { 1 + it.tasks.size } // 카테고리 + 할 일 수
+    }
+
+    class CategoryViewHolder(val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
-            categoryName.text = category.name
-            val taskAdapter = InnerTaskAdapter(category.tasks)
-            taskList.layoutManager = LinearLayoutManager(itemView.context)
-            taskList.adapter = taskAdapter
-
-            addTaskButton.setOnClickListener {
-                // 할 일 추가 로직 구현
-            }
-
-            editCategoryButton.setOnClickListener {
-                // 카테고리 수정 로직 구현
-            }
+            binding.categoryName.text = category.name
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_item, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(categories[position])
-    }
-
-    override fun getItemCount(): Int = categories.size
-
-    class InnerTaskAdapter(private val tasks: List<Task>) : RecyclerView.Adapter<InnerTaskAdapter.TaskViewHolder>() {
-        inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val checkBox: CheckBox = view.findViewById(R.id.task_checkbox)
-
-            fun bind(task: Task) {
-                checkBox.text = task.name
-                checkBox.isChecked = task.isCompleted
-            }
+    class TaskViewHolder(private val binding: TaskItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(task: Task) {
+            binding.taskName.text = task.name
+            binding.taskCheckbox.isChecked = task.isChecked
         }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
-            return TaskViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-            holder.bind(tasks[position])
-        }
-
-        override fun getItemCount(): Int = tasks.size
     }
 }

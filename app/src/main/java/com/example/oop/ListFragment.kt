@@ -2,89 +2,106 @@ package com.example.oop
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.oop.data.Category
 import com.example.oop.databinding.FragmentListBinding
-import com.example.oop.viewmodel.ListViewModel
 import com.example.oop.viewmodel.Repository
-import com.example.oop.viewmodel.ViewModelFactory
 import com.example.oop.viewmodel.TaskAdapter
-
+import java.text.SimpleDateFormat
 import java.util.*
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), TaskAdapter.OnTaskClickListener { // 인터페이스 구현
 
     private var binding: FragmentListBinding? = null
-    private lateinit var viewModel: ListViewModel
-    private lateinit var taskAdapter: TaskAdapter
+    private lateinit var repository: Repository
+
+    private lateinit var selectedDate: Calendar // 선택한 날짜를 저장할 변수
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val repository = Repository()
-        val factory = ViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory).get(ListViewModel::class.java)
+        repository = Repository()
+        selectedDate = Calendar.getInstance() // 현재 날짜로 초기화
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentListBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupDatePicker()
         setupRecyclerView()
-        setupButtons()
-    }
+        displayData()
 
-    private fun setupRecyclerView() {
-        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.categories.observe(viewLifecycleOwner, Observer { categories ->
-            taskAdapter = TaskAdapter(categories)
-            binding?.recyclerView?.adapter = taskAdapter
-        })
-    }
+        // 버튼 클릭 리스너 설정
+        setupClickListeners()
 
-    private fun setupDatePicker() {
+        // 날짜 클릭 리스너 설정
         binding?.todayDate?.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-                val dateString = String.format("%d월 %d일 %d년", selectedMonth + 1, selectedDay, selectedYear)
-                binding?.todayDate?.text = dateString
-            }, year, month, day).show()
+            showDatePickerDialog()
         }
     }
 
-    private fun setupButtons() {
-        binding?.settingsButton?.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_settingFragment)
+    private fun setupClickListeners() {
+        binding?.addCategoryButton?.setOnClickListener {
+            findNavController().navigate(R.id.action_frg_list_to_categoryaddFragment)
         }
 
         binding?.addFriendButton?.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_freiendaddFragment)
         }
 
-        binding?.addCategoryButton?.setOnClickListener {
-            findNavController().navigate(R.id.action_frg_list_to_categoryaddFragment)
+        binding?.settingsButton?.setOnClickListener {
+            findNavController().navigate(R.id.action_listFragment_to_settingFragment)
         }
+    }
+
+    private fun setupRecyclerView() {
+        binding?.taskRecyclerView?.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun displayData() {
+        repository.getCategories().observe(viewLifecycleOwner) { categories ->
+            val adapter = TaskAdapter(categories, this) // 클릭 리스너 전달
+            binding?.taskRecyclerView?.adapter = adapter
+        }
+    }
+
+    private fun showDatePickerDialog() {
+        val year = selectedDate.get(Calendar.YEAR)
+        val month = selectedDate.get(Calendar.MONTH)
+        val day = selectedDate.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            // 선택한 날짜로 Calendar 객체 업데이트
+            selectedDate.set(Calendar.YEAR, selectedYear)
+            selectedDate.set(Calendar.MONTH, selectedMonth)
+            selectedDate.set(Calendar.DAY_OF_MONTH, selectedDay)
+
+            // 요일 계산
+            val dayOfWeek = SimpleDateFormat("EEEE", Locale.getDefault()).format(selectedDate.time)
+
+            // 선택한 날짜를 TextView에 연도와 요일 포함하여 표시
+            binding?.todayDate?.text = String.format("%04d년 %02d월 %02d일 (%s)", selectedYear, selectedMonth + 1, selectedDay, dayOfWeek)
+
+            // 선택한 날짜에 맞는 할 일들을 필터링하여 표시하는 로직 추가
+            // displayDataForSelectedDate(selectedDate)
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
+
+    override fun onAddTaskClick(category: Category) {
+        findNavController().navigate(R.id.action_listFragment_to_addlistFragment)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null // 메모리 누수를 방지하기 위해 binding을 null로 설정
+        binding = null
     }
 }
