@@ -13,15 +13,15 @@ import com.example.oop.viewmodel.UserAdapter
 
 class RankingFragment : Fragment() {
     val rankingList = arrayOf(
-        User("박경순"),
-        User("이상말"),
-        User("괵도혁"),
-        User("괵도혁"),
-        User("괵도혁"),
-        User("괵도혁"),
-        User("괵도혁"),
-        User("괵도혁"),
-        User("문굉현")
+        User("박경훈"),
+        User("이상원"),
+        User("곽도혁"),
+        User("대상혁"),
+        User("대우제"),
+        User("대오너"),
+        User("대마유시"),
+        User("대리아"),
+        User("문경현")
     )
 
     lateinit var binding : FragmentRankingBinding
