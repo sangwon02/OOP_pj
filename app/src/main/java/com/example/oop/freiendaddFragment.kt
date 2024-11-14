@@ -15,7 +15,7 @@ class freiendaddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // ViewBinding을 사용하여 레이아웃을 바인딩합니다.
+        // xml 레이아웃을 바인딩 객체로 초기화
         binding = FragmentFreiendaddBinding.inflate(inflater, container, false)
 
         // 버튼 설정 함수 호출
@@ -26,11 +26,15 @@ class freiendaddFragment : Fragment() {
     }
 
     private fun setupButtons() {
+        // btnBackToList: xml파일에 정의된 버튼 id
+        // setOnClickListener: 버튼 눌렀을 때 작동하는 메소드
         binding?.btnBackToList?.setOnClickListener {
+            // 메소드 호출, 해당 경로로 이동
             findNavController().navigate(R.id.action_btnlistadd_to_frg_list)
         }
     }
 
+    // Fragment가 화면에서 제거될 때 호출, 메모리 누수 방지
     override fun onDestroyView() {
         super.onDestroyView()
         // ViewBinding 객체 해제

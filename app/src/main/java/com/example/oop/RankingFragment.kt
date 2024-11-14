@@ -39,11 +39,14 @@ class RankingFragment : Fragment() {
         // XML 레이아웃을 inflate(xml코드들을 객체화), binding 객체 초기화
         binding = FragmentRankingBinding.inflate(inflater, container, false)
 
+        // recUsers: 리더보드 리사이클러뷰 id
+        // RecyclerView의 레이아웃을 수직으로 설정
         // Fragment 클래스 내부에서 this는 context로 간주되지 않아 requireContext()를 사용해야 한다.
-        // recUsers:
         binding.recUsers.layoutManager = LinearLayoutManager(requireContext())
+        // UserAdapter 클래스를 이용하여 rankingList의 데이터를 리사이클러 뷰에 연결
         binding.recUsers.adapter = UserAdapter(rankingList)
 
+        // Fragment의 루트 뷰 리턴
         return binding.root
     }
 }
