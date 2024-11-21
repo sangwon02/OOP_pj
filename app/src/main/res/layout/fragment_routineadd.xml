@@ -40,6 +40,11 @@
         android:layout_height="76dp"
         android:hint="루틴명" />
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> fb3f8d4ff8e6df1f117f5a8b1683250dd9d3c306
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
