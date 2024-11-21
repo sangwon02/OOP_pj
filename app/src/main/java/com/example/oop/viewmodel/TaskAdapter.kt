@@ -50,7 +50,7 @@ class TaskAdapter(
             //카테고리 처리
             if (currentPosition == position) {
                 (holder as CategoryViewHolder).bind(category) // 카테고리 바인딩
-                holder.binding.addTaskButton.setOnClickListener { // 클릭 시 이벤트 전파
+                holder.binding.addTaskButton.setOnClickListener { //추가 버튼을 눌렀을 때 이동
                     listener.onAddTaskClick(category) // 카테고리를 클릭했을 때 호출
                 }
                 return

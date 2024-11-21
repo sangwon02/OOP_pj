@@ -9,24 +9,39 @@ import com.example.oop.data.Task
 
 class Repository {
     private val dummyCategories = listOf(
-        Category("카테고리 1", listOf(
-            Task("할 일 1-1", "카테고리 1"),
-            Task("할 일 1-2", "카테고리 1")
+        Category("오전", listOf(
+            Task("세수하기", "오전"),
+            Task("양치하기", "오전")
         )),
-        Category("카테고리 2", listOf(
-            Task("할 일 2-1", "카테고리 2"),
-            Task("할 일 2-2", "카테고리 2")
+        Category("오후", listOf(
+            Task("운동하기", "오후"),
+            Task("공부하기", "오후"),
+            Task("친구만나기", "오후")
         )),
-        Category("카테고리 3", listOf(
-            Task("할 일 3-1", "카테고리 3"),
-            Task("할 일 3-2", "카테고리 3")
+        Category("야간", listOf(
+            Task("저녁하기", "야간"),
+            Task("설거지하기", "야간"),
+            Task("설거지하기", "야간"),
+            Task("설거지하기", "야간"),
+            Task("설거지하기", "야간"),
+            Task("청소하기", "야간")
+
         ))
     )
 
     private val dummyRoutines = listOf(
-        RoutineCategory(Category("루틴 카테고리 1", emptyList()), listOf(Routine("루틴 1"), Routine("루틴 2"))),
-        RoutineCategory(Category("루틴 카테고리 2", emptyList()), listOf(Routine("루틴 3"), Routine("루틴 4"))),
-        RoutineCategory(Category("루틴 카테고리 3", emptyList()), listOf(Routine("루틴 5"), Routine("루틴 6")))
+        RoutineCategory(
+            Category("오전", emptyList()),
+            listOf(Routine("세수하기"), Routine("양치하기"))
+        ),
+        RoutineCategory(
+            Category("오후", emptyList()),
+            listOf(Routine("운동하기"), Routine("공부하기"), Routine("친구만나기"))
+        ),
+        RoutineCategory(
+            Category("야간", emptyList()),
+            listOf(Routine("저녁하기"), Routine("설거지하기"))
+        )
     )
 
     private val _categories = MutableLiveData<List<Category>>(dummyCategories)
@@ -39,9 +54,5 @@ class Repository {
     fun getRoutineCategories(): LiveData<List<RoutineCategory>> {
         return _routineCategories
     }
-
-    fun getTasks(): LiveData<List<Task>> {
-        val tasks = dummyCategories.flatMap { it.tasks }
-        return MutableLiveData(tasks)
-    }
+    
 }

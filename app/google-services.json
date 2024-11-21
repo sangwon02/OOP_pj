@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "405679297549",
+    "firebase_url": "https://oop1-50fe0-default-rtdb.firebaseio.com",
+    "project_id": "oop1-50fe0",
+    "storage_bucket": "oop1-50fe0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405679297549:android:fd5a577a9a653f7ea43144",
+        "android_client_info": {
+          "package_name": "com.example.oop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEGw6yX4CjhN3d4Wt-rhlxQc5zr9zm82A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

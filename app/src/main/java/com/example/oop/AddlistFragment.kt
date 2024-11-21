@@ -23,7 +23,6 @@ class AddlistFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            // 파라미터 처리 (필요시)
         }
     }
 
@@ -42,7 +41,6 @@ class AddlistFragment : Fragment() {
         setupDatePicker()
 
         addButton.setOnClickListener {
-            // 할 일 추가 로직 구현
         }
 
         return view
@@ -63,21 +61,9 @@ class AddlistFragment : Fragment() {
             val day = cal.get(Calendar.DAY_OF_MONTH)
 
             DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-                // 날짜 문자열 생성
                 val dateString = String.format("%d년 %d월 %d일", selectedYear, selectedMonth + 1, selectedDay)
                 dateTextView.text = dateString
             }, year, month, day).show()
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddlistFragment().apply {
-                arguments = Bundle().apply {
-                    putString("param1", param1)
-                    putString("param2", param2)
-                }
-            }
     }
 }

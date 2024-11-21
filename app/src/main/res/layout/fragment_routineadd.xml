@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,27 +7,19 @@
     android:background="@android:color/background_light"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:ignore="ExtraText"><![CDATA[>
-
-    ]]>
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/routine_plus_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:text="루틴 추가"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/category"
@@ -36,17 +27,12 @@
         android:layout_height="62dp"
         android:entries="@array/category_array" />
 
-
-
     <TextView
         android:id="@+id/routinetextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="루틴명"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        android:textSize="16sp" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/routineeditText"
@@ -54,8 +40,6 @@
         android:layout_height="76dp"
         android:hint="루틴명" />
 
-
-    <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -145,4 +129,3 @@
             android:layout_gravity="center" />
     </LinearLayout>
 </LinearLayout>
-
