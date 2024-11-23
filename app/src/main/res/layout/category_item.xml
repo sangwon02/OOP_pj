@@ -12,12 +12,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/category_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:id="@+id/categoryName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
         <Button
             android:id="@+id/edit_category_button"
@@ -26,12 +26,11 @@
             android:text="수정" />
 
         <Button
-            android:id="@+id/add_task_button"
+            android:id="@+id/btnaddTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+" />
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/task_list"

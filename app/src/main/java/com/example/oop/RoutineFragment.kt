@@ -5,22 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.oop.data.RoutineCategory
+import com.example.oop.data.Routine
 import com.example.oop.databinding.FragmentRoutineBinding
-import com.example.oop.viewmodel.RoutineAdapter
-import com.example.oop.viewmodel.Repository
+import com.example.oop.RoutineAdapter
 
-class RoutineFragment : Fragment(), RoutineAdapter.OnAddRoutineClickListener { // 루틴 추가 클릭 리스너 인터페이스 구현
+class RoutineFragment : Fragment() {
     private var binding: FragmentRoutineBinding? = null // 뷰 바인딩 객체
     private lateinit var routineAdapter: RoutineAdapter // 루틴 어댑터
-    private lateinit var repository: Repository // 데이터 리포지토리
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        repository = Repository() // Repository 인스턴스 생성
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRoutineBinding.inflate(inflater, container, false) // Fragment UI 생성
@@ -30,7 +22,7 @@ class RoutineFragment : Fragment(), RoutineAdapter.OnAddRoutineClickListener { /
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView() // RecyclerView 설정
-        displayData()
+        displayData() // 데이터 표시
     }
 
     private fun setupRecyclerView() {
@@ -38,17 +30,19 @@ class RoutineFragment : Fragment(), RoutineAdapter.OnAddRoutineClickListener { /
     }
 
     private fun displayData() {
-        val routineCategories = repository.getRoutineCategories().value ?: emptyList() // 데이터 가져오기
-        routineAdapter = RoutineAdapter(routineCategories, this) // 어댑터 초기화 및 클릭 리스너 전달
-        binding?.routineRecyclerView?.adapter = routineAdapter // RecyclerView에 어댑터 설정
-    }
+        // 더미 데이터 생성
+        val routines = listOf(
+            Routine(id = 1, name = "아침 운동", tasks = emptyList()),
+            Routine(id = 2, name = "저녁 독서", tasks = emptyList()),
+            Routine(id = 3, name = "주간 계획 세우기", tasks = emptyList())
+        )
 
-    override fun onAddRoutineClick(category: RoutineCategory) {
-        findNavController().navigate(R.id.action_routineFragment_to_routineaddFragment)
+        routineAdapter = RoutineAdapter(routines) // 어댑터 초기화
+        binding?.routineRecyclerView?.adapter = routineAdapter // RecyclerView에 어댑터 설정
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        binding = null // 뷰 바인딩 객체 해제
     }
 }

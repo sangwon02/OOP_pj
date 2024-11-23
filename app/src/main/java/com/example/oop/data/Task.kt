@@ -1,7 +1,8 @@
 package com.example.oop.data
 
 data class Task(
-    val name: String,
-    val category: String,
-    val isChecked: Boolean = false // 기본값으로 false 설정
+    val id: String = "",
+    val name: String = "",
+    val createdAt: String = "",
+    var checked: Boolean = false
 )
