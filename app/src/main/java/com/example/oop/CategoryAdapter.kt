@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.oop.data.Category
-import com.example.oop.data.Task
+import com.example.oop.viewmodel.TaskViewModel
 
 class CategoryAdapter(
     private var categories: List<Category>,
-    private val onDeleteTask: (Task, String) -> Unit, // Task 삭제 리스너
+    private val taskViewModel: TaskViewModel, // TaskViewModel 추가
     private val onAddTask: (String) -> Unit // 할 일 추가 리스너
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
@@ -24,14 +24,15 @@ class CategoryAdapter(
         fun bind(category: Category) {
             categoryName.text = category.name
 
-            // TaskAdapter 설정
-            val taskAdapter = TaskAdapter(category.tasks.values.toList(), { task -> onDeleteTask(task, category.id) })
+            // TaskAdapter 설정, 카테고리 ID 전달
+            val taskAdapter = TaskAdapter(category.tasks.values.toList(), taskViewModel, category.id) { task ->
+                // 삭제 기능을 고려하지 않으므로 이 부분은 비워둡니다.
+            }
             taskList.adapter = taskAdapter
             taskList.layoutManager = LinearLayoutManager(itemView.context)
 
             // 추가 버튼 클릭 시 AddListFragment로 이동
             addTaskButton.setOnClickListener {
-                // 카테고리 ID를 넘겨서 할 일 추가 화면으로 이동
                 onAddTask(category.id) // 카테고리 ID를 넘겨줍니다.
             }
 

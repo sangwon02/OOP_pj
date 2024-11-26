@@ -33,9 +33,8 @@ class ListFragment : Fragment() {
         todayDateTextView = view.findViewById(R.id.today_date)
         addCategoryButton = view.findViewById(R.id.addCategoryButton)
 
-        adapter = CategoryAdapter(emptyList(), { task, categoryId ->
-            taskViewModel.deleteTask(categoryId, task.id)
-        }) { categoryId ->
+        // TaskViewModel을 CategoryAdapter에 전달합니다.
+        adapter = CategoryAdapter(emptyList(), taskViewModel) { categoryId ->
             // 카테고리 ID를 넘겨서 할 일 추가 화면으로 이동
             val action = ListFragmentDirections.actionListFragmentToAddlistFragment(categoryId)
             findNavController().navigate(action)

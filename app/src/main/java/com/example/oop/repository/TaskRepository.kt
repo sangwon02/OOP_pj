@@ -40,4 +40,8 @@ class TaskRepository {
             // Handle failure
         }
     }
+
+    fun updateTaskStatus(categoryId: String, taskId: String, isChecked: Boolean) {
+        database.child(categoryId).child("tasks").child(taskId).child("checked").setValue(isChecked)
+    }
 }

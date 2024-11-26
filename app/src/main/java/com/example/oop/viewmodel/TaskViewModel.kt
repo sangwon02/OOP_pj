@@ -33,4 +33,8 @@ class TaskViewModel : ViewModel() {
     fun addCategory(category: Category) {
         repository.addCategory(category)
     }
+
+    fun updateTaskStatus(categoryId: String, taskId: String, isChecked: Boolean) {
+        repository.updateTaskStatus(categoryId, taskId, isChecked)
+    }
 }

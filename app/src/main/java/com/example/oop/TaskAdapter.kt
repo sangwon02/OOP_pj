@@ -8,9 +8,12 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.oop.data.Task
+import com.example.oop.viewmodel.TaskViewModel
 
 class TaskAdapter(
     private var tasks: List<Task>,
+    private val taskViewModel: TaskViewModel, // TaskViewModel 추가
+    private val categoryId: String, // 카테고리 ID 추가
     private val onDeleteTask: (Task) -> Unit // Task 삭제 리스너
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
@@ -25,9 +28,7 @@ class TaskAdapter(
 
             // 체크박스 상태 변경 시 Firebase에 업데이트
             taskCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                task.checked = isChecked
-                // TODO: Firebase에 상태 업데이트
-                // 예: taskViewModel.updateTaskStatus(task.id, isChecked)
+                taskViewModel.updateTaskStatus(categoryId, task.id, isChecked) // 상태 업데이트 메서드 호출
             }
 
             deleteButton.setOnClickListener {
@@ -42,7 +43,8 @@ class TaskAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.bind(tasks[position])
+        val task = tasks[position]
+        holder.bind(task) // categoryId는 이제 TaskAdapter의 생성자에서 받습니다.
     }
 
     override fun getItemCount(): Int = tasks.size
