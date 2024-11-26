@@ -15,6 +15,7 @@ class UserAdapter(val users: Array<User>)
 
     // 새로운 뷰 홀더가 필요할 때 호출
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        // parent: 리사이클러 뷰 전체
         val binding = ListProfileBinding.inflate(LayoutInflater.from(parent.context))
         return Holder(binding)
     }
@@ -34,6 +35,7 @@ class UserAdapter(val users: Array<User>)
         fun bind(users: User) {
             binding.imageProfile.setImageResource(R.drawable.profileimage)  // 이미지
             binding.txtName.text = users.name                               // 이름
+            // 달성률 추가 예정
         }
     }
 }

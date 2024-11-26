@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.oop.databinding.FragmentFreiendaddBinding
 
 class freiendaddFragment : Fragment() {
+    // 나중에 메모리 누수를 방지하기 위해서
     private var binding: FragmentFreiendaddBinding? = null
 
     override fun onCreateView(

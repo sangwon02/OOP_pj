@@ -63,7 +63,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rec_users"
             android:layout_width="match_parent"
-            android:layout_height="263dp" />
+            android:layout_height="430dp" />
 
         <TextView
             android:id="@+id/justtext_rankingtime"
