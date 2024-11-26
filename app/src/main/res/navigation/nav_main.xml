@@ -9,13 +9,18 @@
         android:id="@+id/frg_list"
         android:name="com.example.oop.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        tools:layout="@layout/fragment_list">
+
         <action
             android:id="@+id/action_listFragment_to_freindFragment"
             app:destination="@id/frg_friend" />
         <action
             android:id="@+id/action_listFragment_to_addlistFragment"
-            app:destination="@id/frg_listadd" />
+            app:destination="@id/frg_listadd">
+            <argument
+                android:name="categoryId"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_listFragment_to_freiendaddFragment"
             app:destination="@id/btnlistadd" />
@@ -26,11 +31,12 @@
             android:id="@+id/action_frg_list_to_categoryaddFragment"
             app:destination="@id/categoryaddFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/frg_routine"
         android:name="com.example.oop.RoutineFragment"
         android:label="fragment_routine"
-        tools:layout="@layout/fragment_routine" >
+        tools:layout="@layout/fragment_routine">
         <action
             android:id="@+id/action_routineFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
@@ -38,70 +44,81 @@
             android:id="@+id/action_routineFragment_to_routineaddFragment"
             app:destination="@id/frg_routineadd" />
     </fragment>
+
     <fragment
         android:id="@+id/frg_achive"
         android:name="com.example.oop.achiveFragment"
         android:label="fragment_achive"
-        tools:layout="@layout/fragment_achive" >
+        tools:layout="@layout/fragment_achive">
         <action
             android:id="@+id/action_achiveFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
     </fragment>
+
     <fragment
         android:id="@+id/frg_friend"
         android:name="com.example.oop.FreindFragment"
         android:label="fragment_freind"
-        tools:layout="@layout/fragment_freind" >
+        tools:layout="@layout/fragment_freind">
         <action
             android:id="@+id/action_freindFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
     </fragment>
+
     <fragment
         android:id="@+id/frg_listadd"
         android:name="com.example.oop.AddlistFragment"
         android:label="fragment_addlist"
-        tools:layout="@layout/fragment_addlist" >
+        tools:layout="@layout/fragment_addlist">
         <action
             android:id="@+id/action_addlistFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
+        <action
+            android:id="@+id/action_frg_listadd_to_frg_list"
+            app:destination="@id/frg_list" />
     </fragment>
+
     <fragment
         android:id="@+id/frg_routineadd"
         android:name="com.example.oop.routineaddFragment"
         android:label="fragment_routineadd"
-        tools:layout="@layout/fragment_routineadd" >
+        tools:layout="@layout/fragment_routineadd">
         <action
             android:id="@+id/action_routineaddFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
     </fragment>
+
     <fragment
         android:id="@+id/frg_setting"
         android:name="com.example.oop.settingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+
     <fragment
         android:id="@+id/btnlistadd"
         android:name="com.example.oop.freiendaddFragment"
         android:label="fragment_freiendadd"
-        tools:layout="@layout/fragment_freiendadd" >
+        tools:layout="@layout/fragment_freiendadd">
         <action
             android:id="@+id/action_btnlistadd_to_frg_list"
             app:destination="@id/frg_list" />
     </fragment>
+
     <fragment
         android:id="@+id/frg_ranking"
         android:name="com.example.oop.RankingFragment"
         android:label="fragment_ranking"
-        tools:layout="@layout/fragment_ranking" >
+        tools:layout="@layout/fragment_ranking">
         <action
             android:id="@+id/action_rankingFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
     </fragment>
+
     <fragment
         android:id="@+id/categoryaddFragment"
         android:name="com.example.oop.CategoryaddFragment"
         android:label="fragment_categoryadd"
-        tools:layout="@layout/fragment_categoryadd" >
+        tools:layout="@layout/fragment_categoryadd">
         <action
             android:id="@+id/action_categoryaddFragment_to_frg_list"
             app:destination="@id/frg_list" />
