@@ -16,11 +16,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 
 class RankingFragment : Fragment() {
     val rankingList = arrayOf(      // 리더보드 페이지의 사용자 포함 친구(사용자 객체 User.kt) 리스트입니다.
-        User("a"),
+        User("박경훈"),
         User("이상원"),
         User("곽도혁"),
         User("대상혁"),
-        User("대우제"),
         User("대오너"),
         User("대마유시"),
         User("대리아"),

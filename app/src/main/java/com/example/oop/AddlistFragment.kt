@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -28,6 +29,7 @@ class AddlistFragment : Fragment() {
     private lateinit var dateText: TextView
     private lateinit var categorySpinner: Spinner
     private lateinit var selectedDate: String
+    private lateinit var selectedCategoryId: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_addlist, container, false)
@@ -50,7 +52,6 @@ class AddlistFragment : Fragment() {
         // 할 일 추가 버튼 클릭 이벤트
         addButton.setOnClickListener {
             val title = taskNameEditText.text.toString()
-            val selectedCategoryId = categorySpinner.selectedItem.toString() // 선택한 카테고리 ID
             if (title.isNotEmpty()) {
                 val task = Task(name = title, createdAt = selectedDate)
 
@@ -67,13 +68,23 @@ class AddlistFragment : Fragment() {
     }
 
     private fun setupCategorySpinner() {
-        // 카테고리 데이터를 가져와서 스피너에 설정
         val categoryViewModel = ViewModelProvider(requireActivity()).get(CategoryViewModel::class.java)
         categoryViewModel.categories.observe(viewLifecycleOwner) { categories ->
             val categoryNames = categories.map { it.name }
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoryNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             categorySpinner.adapter = adapter
+
+            // 스피너 아이템 선택 리스너 설정
+            categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                    selectedCategoryId = categories[position].id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // 아무것도 선택되지 않았을 때의 행동을 정의 (필요에 따라 구현)
+                }
+            }
         }
     }
 
@@ -96,4 +107,3 @@ class AddlistFragment : Fragment() {
         }, year, month, day).show()
     }
 }
-
