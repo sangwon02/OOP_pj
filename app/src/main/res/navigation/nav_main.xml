@@ -23,7 +23,7 @@
         </action>
         <action
             android:id="@+id/action_listFragment_to_freiendaddFragment"
-            app:destination="@id/btnlistadd" />
+            app:destination="@id/frg_friendadd" />
         <action
             android:id="@+id/action_listFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
@@ -95,7 +95,7 @@
         tools:layout="@layout/fragment_setting" />
 
     <fragment
-        android:id="@+id/btnlistadd"
+        android:id="@+id/frg_friendadd"
         android:name="com.example.oop.freiendaddFragment"
         android:label="fragment_freiendadd"
         tools:layout="@layout/fragment_freiendadd">

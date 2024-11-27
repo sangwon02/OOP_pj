@@ -12,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.oop.databinding.FragmentListBinding
 import com.example.oop.viewmodel.TaskViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ListFragment : Fragment() {
+    private var binding: FragmentListBinding? = null
 
     private lateinit var taskViewModel: TaskViewModel
     private lateinit var recyclerView: RecyclerView
@@ -27,6 +29,9 @@ class ListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
+        binding = FragmentListBinding.inflate(inflater, container, false)
+
+
 
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         recyclerView = view.findViewById(R.id.taskRecyclerView)
@@ -57,6 +62,12 @@ class ListFragment : Fragment() {
         // 카테고리 추가 버튼 클릭 리스너
         addCategoryButton.setOnClickListener {
             val action = ListFragmentDirections.actionFrgListToCategoryaddFragment()
+            findNavController().navigate(action)
+        }
+
+        binding?.addFriendButton?.setOnClickListener {
+            // friendaddFragment로 이동
+            val action = ListFragmentDirections.actionListFragmentToFreiendaddFragment()
             findNavController().navigate(action)
         }
 

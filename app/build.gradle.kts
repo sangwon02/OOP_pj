@@ -39,6 +39,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -52,10 +56,14 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-database:21.0.0'")
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.recyclerview)
     implementation(libs.firebase.inappmessaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("androidx.recyclerview:recyclerview:1.3.1")
 }
+
+apply(plugin = "com.google.gms.google-services")
