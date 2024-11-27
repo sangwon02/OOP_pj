@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +25,7 @@ class ListFragment : Fragment() {
     private lateinit var todayDateTextView: TextView
     private lateinit var selectedDate: String
     private lateinit var addCategoryButton: Button
+    private lateinit var addFriendButton: Button // 추가된 부분
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
@@ -32,6 +34,7 @@ class ListFragment : Fragment() {
         recyclerView = view.findViewById(R.id.taskRecyclerView)
         todayDateTextView = view.findViewById(R.id.today_date)
         addCategoryButton = view.findViewById(R.id.addCategoryButton)
+        addFriendButton = view.findViewById(R.id.add_friend_button) // 추가된 부분
 
         // TaskViewModel을 CategoryAdapter에 전달합니다.
         adapter = CategoryAdapter(emptyList(), taskViewModel) { categoryId ->
@@ -56,6 +59,12 @@ class ListFragment : Fragment() {
         // 카테고리 추가 버튼 클릭 리스너
         addCategoryButton.setOnClickListener {
             val action = ListFragmentDirections.actionFrgListToCategoryaddFragment()
+            findNavController().navigate(action)
+        }
+
+        // 친구 추가 버튼 클릭 리스너
+        addFriendButton.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToFreiendaddFragment() // 수정된 부분
             findNavController().navigate(action)
         }
 
