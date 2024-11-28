@@ -21,6 +21,7 @@ import com.example.oop.viewmodel.TaskViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+// 새로운 할 일을 추가하는 화면
 class AddlistFragment : Fragment() {
 
     private lateinit var taskViewModel: TaskViewModel
@@ -46,13 +47,13 @@ class AddlistFragment : Fragment() {
         // 오늘 날짜로 초기화
         setDefaultDate()
 
-        // 날짜 선택 다이얼로그
         dateText.setOnClickListener { showDatePickerDialog() }
 
-        // 할 일 추가 버튼 클릭 이벤트
+        // 할 일 추가 버튼 클릭 시
         addButton.setOnClickListener {
             val title = taskNameEditText.text.toString()
             if (title.isNotEmpty()) {
+                // 할 일의 내용을 입력하고 선택한 날짜를 토대로 할 일 생성
                 val task = Task(name = title, createdAt = selectedDate)
 
                 // 할 일 추가
@@ -63,7 +64,6 @@ class AddlistFragment : Fragment() {
                 Toast.makeText(requireContext(), "할 일을 입력하세요.", Toast.LENGTH_SHORT).show()
             }
         }
-
         return view
     }
 
@@ -75,14 +75,12 @@ class AddlistFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             categorySpinner.adapter = adapter
 
-            // 스피너 아이템 선택 리스너 설정
+            // 카테고리 선택 리스너 설정
             categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     selectedCategoryId = categories[position].id
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {
-                    // 아무것도 선택되지 않았을 때의 행동을 정의 (필요에 따라 구현)
                 }
             }
         }
