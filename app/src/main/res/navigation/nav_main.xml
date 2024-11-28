@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_routineFragment_to_routineaddFragment"
             app:destination="@id/frg_routineadd" />
+
+
+
     </fragment>
 
     <fragment

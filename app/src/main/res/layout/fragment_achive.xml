@@ -89,7 +89,7 @@
                 android:layout_width="244dp"
                 android:layout_height="80dp"
                 android:layout_weight="1"
-                android:hint="할 일을 입력하세요"
+                android:hint="할 일"
                 app:layout_constraintEnd_toStartOf="@+id/taskCheckBox2"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/text_front"
