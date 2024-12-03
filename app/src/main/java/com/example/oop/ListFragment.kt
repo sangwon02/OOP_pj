@@ -38,6 +38,7 @@ class ListFragment : Fragment() {
         addFriendButton = view.findViewById(R.id.add_friend_button)
 
         adapter = CategoryAdapter(emptyList(), taskViewModel) { categoryId ->
+
             val action = ListFragmentDirections.actionListFragmentToAddlistFragment(categoryId)
             findNavController().navigate(action)
         }

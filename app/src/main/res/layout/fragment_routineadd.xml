@@ -9,6 +9,13 @@
     android:padding="16dp"
     tools:ignore="ExtraText">
 
+    <Button
+        android:id="@+id/btnBackToRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" back" />
+
+
     <TextView
         android:id="@+id/routine_plus_textView"
         android:layout_width="match_parent"
@@ -20,6 +27,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold" />
+
 
     <Spinner
         android:id="@+id/category"
@@ -125,7 +133,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="등록"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="50dp"
             android:layout_gravity="center" />
     </LinearLayout>
 </LinearLayout>
