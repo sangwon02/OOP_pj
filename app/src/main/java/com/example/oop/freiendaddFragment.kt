@@ -29,9 +29,8 @@ class freiendaddFragment : Fragment() {
     private fun setupButtons() {
         // btnBackToList: xml파일에 정의된 버튼 id
         // setOnClickListener: 버튼 눌렀을 때 작동하는 메소드
-        binding?.btnBackToList?.setOnClickListener {
-            // 메소드 호출, 해당 경로로 이동
-            findNavController().navigate(R.id.action_btnlistadd_to_frg_list)
+        binding?.btnBackToList?.setOnClickListener { // "btn_BackToList" 버튼 클릭 리스너
+            findNavController().navigate(R.id.action_frg_freiendadd_to_frg_ranking)
         }
     }
 

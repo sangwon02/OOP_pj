@@ -9,16 +9,27 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.oop.data.Category
+import com.example.oop.data.User
+import com.example.oop.repository.UserRepository
 import com.example.oop.viewmodel.TaskViewModel
+import com.example.oop.viewmodel.UserAdapter
+import com.example.oop.viewmodel.UserViewModel
+import com.example.oop.viewmodel.UserViewModelFactory
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ListFragment : Fragment() {
-
     private lateinit var taskViewModel: TaskViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoryAdapter
@@ -29,7 +40,6 @@ class ListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
-
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         recyclerView = view.findViewById(R.id.taskRecyclerView)
         todayDateTextView = view.findViewById(R.id.today_date)

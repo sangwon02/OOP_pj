@@ -10,7 +10,7 @@ import com.google.firebase.database.ValueEventListener
 
 class UserRepository {
     private val db: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Friends")    // "Users" 경로를 참조
+        FirebaseDatabase.getInstance().getReference("Friend")    // "Friend" 경로를 참조
 
     // 사용자 데이터를 가져오는 메소드, 매개변수 callback: 사용자 목록 반환
     fun getUsers(callback: (List<User>) -> Unit) {
@@ -19,13 +19,23 @@ class UserRepository {
                 val userList = mutableListOf<User>()
                 for (userSnapshot in snapshot.children) {
                     val user = userSnapshot.getValue(User::class.java)
-                    user?.let { userList.add(it) }
+                    user?.let {
+                        // progression 계산
+                        var totalTasks = 0
+                        var completedTasks = 0
+                        for (category in it.category.values) {
+                            totalTasks += category.tasks.size
+                            completedTasks += category.tasks.values.count { task -> task.checked }
+                        }
+                        val progression = if (totalTasks > 0) (completedTasks * 100) / totalTasks else 0
+                        it.progression = progression
+                        userList.add(it)
+                    }
                 }
                 callback(userList)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle possible errors.
                 Log.e("UserRepository", "Error fetching users: ${error.message}")
             }
         })

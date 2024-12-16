@@ -40,8 +40,8 @@ class UserAdapter(private var users: List<User>)
         // User 객체를 받아 각 뷰의 데이터와 연결
         fun bind(users: User) {
             binding.imageProfile.setImageResource(R.drawable.profileimage)  // 이미지
-            binding.txtName.text = users.username                               // 이름
-            // 달성률 추가 예정
+            binding.txtName.text = users.username                           // 이름
+            binding.progressCircle2.progress = users.progression            // 진척도
         }
     }
 }
