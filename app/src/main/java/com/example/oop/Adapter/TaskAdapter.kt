@@ -14,7 +14,7 @@ class TaskAdapter(
     private var tasks: List<Task>,
     private val taskViewModel: TaskViewModel,
     private val categoryId: String,
-    private val onDeleteTask: (Task) -> Unit
+    private val onDeleteTask: (Task) -> Unit  // 할 일 삭제 콜백
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -31,7 +31,7 @@ class TaskAdapter(
             }
 
             deleteButton.setOnClickListener {
-                onDeleteTask(task) // 삭제 리스너 호출
+                onDeleteTask(task) // 삭제 콜백 호출
             }
         }
     }

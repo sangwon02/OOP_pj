@@ -41,6 +41,15 @@ class TaskRepository {
         }
     }
 
+    fun deleteCategory(categoryId: String) {
+        database.child(categoryId).removeValue()
+    }
+
+    // 할 일 삭제
+    fun deleteTask(categoryId: String, taskId: String) {
+        database.child(categoryId).child("tasks").child(taskId).removeValue()
+    }
+
     // 할 일의 checked 상태를 업데이트
     fun updateTaskStatus(categoryId: String, taskId: String, isChecked: Boolean) {
         database.child(categoryId).child("tasks").child(taskId).child("checked").setValue(isChecked)

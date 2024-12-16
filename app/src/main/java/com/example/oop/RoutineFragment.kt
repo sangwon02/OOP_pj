@@ -16,18 +16,11 @@ class RoutineFragment : Fragment() {
 
 
 
-
-
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRoutineBinding.inflate(inflater, container, false) // Fragment UI 생성
         return binding?.root // 생성된 뷰 반환
 
-
-
     }
-
 
 
     private fun setupRecyclerView() {

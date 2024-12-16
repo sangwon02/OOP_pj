@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.oop.data.Category
 import com.example.oop.viewmodel.TaskViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,12 +47,18 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         taskViewModel.categories.observe(viewLifecycleOwner) { categories ->
-            adapter.updateCategories(categories)
+            filterTasksByDate(categories) // 날짜 필터링 함수 호출
         }
 
         setDefaultDate()
 
-        todayDateTextView.setOnClickListener { showDatePickerDialog() }
+        todayDateTextView.setOnClickListener {
+            showDatePickerDialog()
+            // 날짜 선택 후 필터링 적용
+            taskViewModel.categories.observe(viewLifecycleOwner) { categories ->
+                filterTasksByDate(categories)
+            }
+        }
 
         addCategoryButton.setOnClickListener {
             val action = ListFragmentDirections.actionFrgListToCategoryaddFragment()
@@ -83,6 +89,22 @@ class ListFragment : Fragment() {
         DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
             selectedDate = "${selectedYear}년 ${selectedMonth + 1}월 ${selectedDay}일"
             todayDateTextView.text = selectedDate
+
+            // 날짜 선택 후 필터링 적용
+            taskViewModel.categories.value?.let { categories ->
+                filterTasksByDate(categories)
+            }
         }, year, month, day).show()
+    }
+
+    // 날짜에 맞는 할 일 필터링 함수
+    private fun filterTasksByDate(categories: List<Category>) {
+        val filteredCategories = categories.map { category ->
+            val filteredTasks = category.tasks.filterValues { task ->
+                task.createdAt == selectedDate
+            }
+            category.copy(tasks = filteredTasks.toMutableMap())
+        }
+        adapter.updateCategories(filteredCategories)
     }
 }
