@@ -64,6 +64,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.recyclerview:recyclerview:1.3.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.0.0")
 }
 
 apply(plugin = "com.google.gms.google-services")
