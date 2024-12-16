@@ -35,7 +35,6 @@ class ListFragment : Fragment() {
         recyclerView = view.findViewById(R.id.taskRecyclerView)
         todayDateTextView = view.findViewById(R.id.today_date)
         addCategoryButton = view.findViewById(R.id.addCategoryButton)
-        addFriendButton = view.findViewById(R.id.add_friend_button)
 
         adapter = CategoryAdapter(emptyList(), taskViewModel) { categoryId ->
 
@@ -62,11 +61,6 @@ class ListFragment : Fragment() {
 
         addCategoryButton.setOnClickListener {
             val action = ListFragmentDirections.actionFrgListToCategoryaddFragment()
-            findNavController().navigate(action)
-        }
-
-        addFriendButton.setOnClickListener {
-            val action = ListFragmentDirections.actionListFragmentToFreiendaddFragment()
             findNavController().navigate(action)
         }
 
