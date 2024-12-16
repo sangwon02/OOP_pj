@@ -7,6 +7,7 @@ import com.example.oop.data.Category
 import com.example.oop.data.Task
 import com.example.oop.repository.TaskRepository
 
+// 할 일 관련 데이터를 관리.
 class TaskViewModel : ViewModel() {
     private val repository = TaskRepository()
     private val _categories = MutableLiveData<List<Category>>()
@@ -22,19 +23,24 @@ class TaskViewModel : ViewModel() {
         }
     }
 
+    // 특정 카테고리에 할 일을 추가
     fun addTaskToCategory(categoryId: String, task: Task) {
         repository.addTaskToCategory(categoryId, task)
     }
 
-    fun deleteTask(categoryId: String, taskId: String) {
-        repository.deleteTask(categoryId, taskId)
-    }
-
-    fun addCategory(category: Category) {
-        repository.addCategory(category)
-    }
-
+    // 할 일 상태 업데이트
     fun updateTaskStatus(categoryId: String, taskId: String, isChecked: Boolean) {
         repository.updateTaskStatus(categoryId, taskId, isChecked)
+    }
+
+    fun deleteCategory(categoryId: String) {
+        repository.deleteCategory(categoryId)
+        fetchCategories()
+    }
+
+    // 할 일 삭제
+    fun deleteTask(categoryId: String, taskId: String) {
+        repository.deleteTask(categoryId, taskId)
+        fetchCategories()
     }
 }

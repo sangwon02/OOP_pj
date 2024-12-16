@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.oop.data.Category
 import com.example.oop.viewmodel.CategoryViewModel
 
+//새로운 카테고리를 추가하는 화면
 class CategoryaddFragment : Fragment() {
 
     private lateinit var categoryViewModel: CategoryViewModel
@@ -29,11 +30,11 @@ class CategoryaddFragment : Fragment() {
             val categoryName = categoryNameEditText.text.toString()
             if (categoryName.isNotEmpty()) {
                 val newCategory = Category(name = categoryName)
+                // 카테고리 이름을 받아 CategoryViewModel의 addCategory 호출
                 categoryViewModel.addCategory(newCategory)
                 findNavController().navigate(R.id.action_categoryaddFragment_to_frg_list)
             }
         }
-
         return view
     }
 }

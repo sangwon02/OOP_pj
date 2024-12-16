@@ -10,13 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.oop.data.User
-import com.example.oop.databinding.FragmentListBinding
 import com.example.oop.databinding.FragmentRankingBinding
-import com.example.oop.viewmodel.UserAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.oop.repository.UserRepository
+import com.example.oop.Adapter.UserAdapter
 import com.example.oop.viewmodel.UserViewModel
 import com.example.oop.viewmodel.UserViewModelFactory
 
@@ -100,4 +97,5 @@ class RankingFragment : Fragment() {
 
         viewModel.loadFriends() // 데이터 로드
     }
+
 }

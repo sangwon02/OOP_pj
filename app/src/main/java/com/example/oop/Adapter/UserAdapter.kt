@@ -1,7 +1,6 @@
-package com.example.oop.viewmodel
+package com.example.oop.Adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.oop.data.User
