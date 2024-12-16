@@ -21,22 +21,13 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
         _friends.value = newFriends
     }
 
-    /*
-    fun loadUsers() {
-        repository.getUsers { userList ->
-            _users.value = userList
-        }
-    }
-     */
-
     fun loadFriends() {
-        // UserRepository의 getUsers 메소드를 호출하여 사용자 목록
+        // UserRepository의 getUsers 메소드를 호출하여 사용자 목록을 가져옵니다.
         repository.getUsers { users ->
             Log.d("UserViewModel", "Fetched Users: $users") // 로그 추가
-            // isFriend가 true인 사용자만 필터링
-            val friendList = users.filter { it.isFriend == "true" }
-            Log.d("UserViewModel", "Filtered Friend List: $friendList") // 로그 추가
-            _friends.value = friendList
+
+            // 가져온 사용자 목록을 그대로 사용
+            _friends.value = users // LiveData에 사용자 목록 설정
         }
     }
 }
