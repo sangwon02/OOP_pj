@@ -7,7 +7,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 class UserRepository {
     private val db: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Users")    // "Users" 경로를 참조
+        FirebaseDatabase.getInstance().getReference("Friend")    // "Users" 경로를 참조
 
     // 사용자 데이터를 가져오는 메소드, 매개변수 callback: 사용자 목록 반환
     fun getUsers(callback: (List<User>) -> Unit) {
