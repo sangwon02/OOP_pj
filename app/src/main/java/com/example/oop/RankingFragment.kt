@@ -24,16 +24,16 @@ class RankingFragment : Fragment() {
     private lateinit var viewModel: UserViewModel
     // fragment_ranking.xml의 뷰 요소를 코드에서 쉽게 다루게 합니다. 뷰 바인딩을 사용합니다.
     lateinit var binding : FragmentRankingBinding
-    val sharedViewModel: UserViewModel by activityViewModels()
 
     // Fragment가 호출될 때 호출되는 초기화 메소드
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // UserRepository 인스턴스 생성
-        val userRepository = UserRepository() // UserRepository의 생성 방법에 따라 다를 수 있습니다.
+        val userRepository = UserRepository()
 
         // ViewModelFactory를 사용하여 ViewModel 초기화
+        // UserRepository를 매개변수로 줘야하므로 팩토리 생성
         val factory = UserViewModelFactory(userRepository)
         viewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
         viewModel.loadFriends()
@@ -76,13 +76,6 @@ class RankingFragment : Fragment() {
         binding.recUsers.adapter = userAdapter
         binding.recUsers.layoutManager = LinearLayoutManager(requireContext())
 
-        // UserRepository 인스턴스 생성
-        val userRepository = UserRepository()
-
-        // ViewModelFactory를 사용하여 ViewModel 초기화
-        val factory = UserViewModelFactory(userRepository) // UserViewModelFactory 사용
-        viewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
-
         // ViewModel에서 사용자 데이터를 관찰하고 변경될 때마다 어댑터를 업데이트
         viewModel.friends.observe(viewLifecycleOwner) { users ->
             Log.d("RankingFragment", "Observed Users: $users")
@@ -92,8 +85,6 @@ class RankingFragment : Fragment() {
         binding.button.setOnClickListener { // "친구추가" 버튼 클릭 리스너
             findNavController().navigate(R.id.action_frg_ranking_to_frg_friendadd)
         }
-
         viewModel.loadFriends() // 데이터 로드
     }
-
 }

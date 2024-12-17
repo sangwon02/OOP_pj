@@ -14,9 +14,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
 class freiendaddFragment : Fragment() {
-    private var binding: FragmentFreiendaddBinding? = null  // 메모리 누수를 방지
+    private var binding: FragmentFreiendaddBinding? = null  // 메모리 누수 방지
     private val database = FirebaseDatabase.getInstance()   // Firebase Database 인스턴스
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,15 +44,16 @@ class freiendaddFragment : Fragment() {
         }
     }
 
+    // 친구 추가 시 파이어베이스 User -> Friend로 옮기는 함수
     private fun moveUserToFriend(friendId: String) {
-        val usersRef = database.reference.child("User")
-        val friendsRef = database.reference.child("Friend") // "Friend" 노드 레퍼런스
-
+        val usersRef = database.reference.child("User")     // USer 노드 레퍼런스
+        val friendsRef = database.reference.child("Friend") // Friend 노드 레퍼런스
         usersRef.orderByChild("id").equalTo(friendId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
+                // 데이터를 성공적으로 읽어올 경우
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        for (userSnapshot in snapshot.children) {
+                    if (snapshot.exists()) {                        // 일치하는 유저가 있을 경우
+                        for (userSnapshot in snapshot.children) {   // 혹시 모를 중복 방지
                             val user = userSnapshot.getValue(User::class.java)
 
                             // friends 노드에 user 데이터 추가
@@ -78,9 +78,11 @@ class freiendaddFragment : Fragment() {
                     } else {
                         // ID가 잘못되었거나 존재하지 않는 사용자입니다.
                         Log.w("friendaddFragment", "User not found with ID: $friendId")
+
+                        // 존재하지 않는 사용자 메시지 띄우기
+                        binding?.inputFriendcode?.error = "존재하지 않는 사용자입니다."
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Log.w("friendaddFragment", "Error getting documents: ", error.toException())
                 }
