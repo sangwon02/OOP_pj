@@ -17,7 +17,7 @@
 
 
     <Button
-        android:id="@+id/add_routine_button"
+        android:id="@+id/btnAddRoutine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="232dp"

@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_routineaddFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
+        <action
+            android:id="@+id/action_routineaddFragment_to_routineFragment"
+            app:destination="@id/frg_routine" />
     </fragment>
 
     <fragment

@@ -1,10 +1,10 @@
 package com.example.oop.viewmodel
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.oop.data.Achieve
-
 
 class AchieveViewModel : ViewModel() {
     private val _achieveList = MutableLiveData<List<Achieve>>(emptyList())
