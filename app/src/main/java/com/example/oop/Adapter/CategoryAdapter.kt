@@ -13,8 +13,8 @@ import com.example.oop.viewmodel.TaskViewModel
 // Category를 RecyclerView에 표시하기 위한 어댑터
 class CategoryAdapter(
     private var categories: List<Category>,
-    private val taskViewModel: TaskViewModel, // TaskViewModel 인스턴스 - 카테고리 및 할 일 관리
-    private val onAddTask: (String) -> Unit //카테고리 ID를 전달하여 할 일 추가 화면으로 이동
+    private val taskViewModel: TaskViewModel,
+    private val onAddTask: (String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     //각 카테고리 아이템의 뷰를 담는 홀더
@@ -30,7 +30,7 @@ class CategoryAdapter(
 
             // 카테고리 삭제 버튼 클릭 리스너
             deleteCategoryButton.setOnClickListener {
-                taskViewModel.deleteCategory(category.id) // ViewModel을 통해 카테고리 삭제
+                taskViewModel.deleteCategory(category.id)
             }
 
             // TaskAdapter 설정, 카테고리 ID와 삭제 함수 전달

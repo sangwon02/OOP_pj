@@ -28,20 +28,20 @@ class ListFragment : Fragment() {
 
     // 프래그먼트의 UI를 초기화하는 함수
     override fun onCreateView(
-        inflater: LayoutInflater, // XML 레이아웃을 View 객체로 변환하는 LayoutInflater
-        container: ViewGroup?, // 프래그먼트의 부모 ViewGroup
-        savedInstanceState: Bundle? // 프래그먼트의 이전 상태 정보
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_list, container, false) // fragment_list 레이아웃을 inflate하여 View 객체 생성
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java) // TaskViewModel 객체 생성
-        recyclerView = view.findViewById(R.id.taskRecyclerView) // RecyclerView 객체를 레이아웃에서 찾아 초기화
-        todayDateTextView = view.findViewById(R.id.today_date) // TextView 객체를 레이아웃에서 찾아 초기화
-        addCategoryButton = view.findViewById(R.id.addCategoryButton) // Button 객체를 레이아웃에서 찾아 초기화
+        recyclerView = view.findViewById(R.id.taskRecyclerView)
+        todayDateTextView = view.findViewById(R.id.today_date)
+        addCategoryButton = view.findViewById(R.id.addCategoryButton)
 
         // CategoryAdapter 초기화
         adapter = CategoryAdapter(emptyList(), taskViewModel) { categoryId -> // 어댑터 생성 및 콜백 함수 설정
-            val action = ListFragmentDirections.actionListFragmentToAddlistFragment(categoryId) // AddlistFragment로 이동하기 위한 action 생성
-            findNavController().navigate(action) // Navigation 컴포넌트를 사용하여 AddlistFragment로 이동
+            val action = ListFragmentDirections.actionListFragmentToAddlistFragment(categoryId)
+            findNavController().navigate(action)
         }
 
         recyclerView.adapter = adapter // RecyclerView에 어댑터 설정
@@ -52,7 +52,7 @@ class ListFragment : Fragment() {
             filterTasksByDate(categories) // 날짜 필터링 함수 호출
         }
 
-        setDefaultDate() // 초기 날짜 설정
+        setDefaultDate()
 
         // 날짜 선택 TextView 클릭 시 DatePickerDialog 표시
         todayDateTextView.setOnClickListener {
@@ -71,14 +71,14 @@ class ListFragment : Fragment() {
     // 오늘 날짜를 기본값으로 설정하는 함수
     private fun setDefaultDate() {
         val calendar = Calendar.getInstance() // 현재 날짜 정보를 가져오는 Calendar 객체 생성
-        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()) // 날짜 형식 지정
-        selectedDate = dateFormat.format(calendar.time) // 현재 날짜를 지정된 형식의 문자열로 변환하여 저장
-        todayDateTextView.text = selectedDate // TextView에 현재 날짜 표시
+        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault())
+        selectedDate = dateFormat.format(calendar.time) //현재 날짜를 지정된 형식의 문자열로 변환하여 저장
+        todayDateTextView.text = selectedDate
     }
 
     //날짜를 선택하는 함수
     private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance() // 현재 날짜 정보를 가져오는 Calendar 객체 생성
+        val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -88,7 +88,7 @@ class ListFragment : Fragment() {
             requireContext(),
             { _, selectedYear, selectedMonth, selectedDay -> // 날짜 선택 리스너
                 selectedDate = "${selectedYear}년 ${selectedMonth + 1}월 ${selectedDay}일" // 선택된 날짜를 지정된 형식의 문자열로 변환하여 저장
-                todayDateTextView.text = selectedDate // TextView에 선택된 날짜 표시
+                todayDateTextView.text = selectedDate //TextView에 선택된 날짜 표시
 
                 // 날짜 선택 후 필터링 적용
                 taskViewModel.categories.value?.let { categories -> // 현재 카테고리 목록을 가져와서
