@@ -1,5 +1,6 @@
 package com.example.oop.repository
 
+import androidx.room.util.copy
 import com.example.oop.data.Category
 import com.example.oop.data.Task
 import com.google.firebase.database.DatabaseReference
@@ -38,6 +39,15 @@ class TaskRepository {
             }
             onResult(categoriesList)
         }
+    }
+
+    fun deleteCategory(categoryId: String) {
+        database.child(categoryId).removeValue()
+    }
+
+    // 할 일 삭제
+    fun deleteTask(categoryId: String, taskId: String) {
+        database.child(categoryId).child("tasks").child(taskId).removeValue()
     }
 
     // 할 일의 checked 상태를 업데이트

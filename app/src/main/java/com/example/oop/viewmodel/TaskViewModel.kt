@@ -32,4 +32,15 @@ class TaskViewModel : ViewModel() {
     fun updateTaskStatus(categoryId: String, taskId: String, isChecked: Boolean) {
         repository.updateTaskStatus(categoryId, taskId, isChecked)
     }
+
+    fun deleteCategory(categoryId: String) {
+        repository.deleteCategory(categoryId)
+        fetchCategories()
+    }
+
+    // 할 일 삭제
+    fun deleteTask(categoryId: String, taskId: String) {
+        repository.deleteTask(categoryId, taskId)
+        fetchCategories()
+    }
 }

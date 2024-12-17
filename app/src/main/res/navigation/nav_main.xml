@@ -100,8 +100,8 @@
         android:label="fragment_freiendadd"
         tools:layout="@layout/fragment_freiendadd">
         <action
-            android:id="@+id/action_btnlistadd_to_frg_list"
-            app:destination="@id/frg_list" />
+            android:id="@+id/action_frg_freiendadd_to_frg_ranking"
+            app:destination="@id/frg_ranking" />
     </fragment>
 
     <fragment
@@ -112,6 +112,9 @@
         <action
             android:id="@+id/action_rankingFragment_to_settingFragment"
             app:destination="@id/frg_setting" />
+        <action
+            android:id="@+id/action_frg_ranking_to_frg_friendadd"
+            app:destination="@id/frg_friendadd" />
     </fragment>
 
     <fragment

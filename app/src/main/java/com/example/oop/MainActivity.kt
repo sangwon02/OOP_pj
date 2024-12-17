@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.oop.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.database
 
 // 열심히 합시다!!
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Firebase 초기화
+        FirebaseApp.initializeApp(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val navController = binding.frgNav.getFragment<NavHostFragment>().navController
