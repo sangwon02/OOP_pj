@@ -1,17 +1,23 @@
 package com.example.oop
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.oop.data.User
 import com.example.oop.databinding.FragmentFreiendaddBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+
 
 class freiendaddFragment : Fragment() {
-    // 나중에 메모리 누수를 방지하기 위해서
-    private var binding: FragmentFreiendaddBinding? = null
-
+    private var binding: FragmentFreiendaddBinding? = null  // 메모리 누수를 방지
+    private val database = FirebaseDatabase.getInstance()   // Firebase Database 인스턴스
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,6 +38,53 @@ class freiendaddFragment : Fragment() {
         binding?.btnBackToList?.setOnClickListener { // "btn_BackToList" 버튼 클릭 리스너
             findNavController().navigate(R.id.action_frg_freiendadd_to_frg_ranking)
         }
+
+        binding?.btnAddFriend?.setOnClickListener {
+            val friendId = binding?.inputFriendcode?.text.toString()
+            moveUserToFriend(friendId)
+        }
+    }
+
+    private fun moveUserToFriend(friendId: String) {
+        val usersRef = database.reference.child("User")
+        val friendsRef = database.reference.child("Friend") // "Friend" 노드 레퍼런스
+
+        usersRef.orderByChild("id").equalTo(friendId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        for (userSnapshot in snapshot.children) {
+                            val user = userSnapshot.getValue(User::class.java)
+
+                            // friends 노드에 user 데이터 추가
+                            friendsRef.child(friendId).setValue(user)
+                                .addOnSuccessListener {
+                                    // 친구 추가 성공
+                                    // users 노드에서 user 데이터 삭제
+                                    userSnapshot.ref.removeValue()
+                                        .addOnSuccessListener {
+                                            // UI 업데이트 등 필요한 작업 수행
+                                            Log.d("friendaddFragment", "User moved to Friend successfully!")
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Log.w("friendaddFragment", "Error removing user", e)
+                                        }
+                                }
+                                .addOnFailureListener { e ->
+                                    // 친구 추가 실패
+                                    Log.w("friendaddFragment", "Error adding friend", e)
+                                }
+                        }
+                    } else {
+                        // ID가 잘못되었거나 존재하지 않는 사용자입니다.
+                        Log.w("friendaddFragment", "User not found with ID: $friendId")
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.w("friendaddFragment", "Error getting documents: ", error.toException())
+                }
+            })
     }
 
     // Fragment가 화면에서 제거될 때 호출, 메모리 누수 방지

@@ -25,9 +25,10 @@
                 android:id="@+id/justtext_nowranking1"
                 android:layout_width="wrap_content"
                 android:layout_height="76dp"
-                android:text="당신의 친구 목록"
+                android:text="친구 목록"
                 android:textAlignment="viewStart"
-                android:textSize="34sp" />
+                android:textSize="34sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

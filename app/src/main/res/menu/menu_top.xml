@@ -9,7 +9,7 @@
     <item
         android:id="@+id/frg_ranking"
         android:icon="@drawable/baseline_add_task_24"
-        android:title="리더보드" />
+        android:title="친구" />
     <item
         android:id="@+id/frg_routine"
         android:icon="@drawable/baseline_repeat_24"

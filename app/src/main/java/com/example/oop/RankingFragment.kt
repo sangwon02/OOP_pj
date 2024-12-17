@@ -71,9 +71,7 @@ class RankingFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding = FragmentRankingBinding.bind(view)
-
         userAdapter = UserAdapter(emptyList()) // 초기에는 빈 리스트로 초기화
         binding.recUsers.adapter = userAdapter
         binding.recUsers.layoutManager = LinearLayoutManager(requireContext())
